@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import SearchForm from './SearchForm';
-import Filters from './Filters';
 import List from './List';
-import { url } from 'inspector';
+import Error from './Error';
 
 
 
@@ -15,23 +14,20 @@ class App extends Component {
     this.state = {
       loading: false,
       books: [],
-      printFilter: null,
-      bookFilter: null,
-      searchTerm: null
+      error: '',
     }
   }
 
-  updateBooks = (data) => {
-    const books = data.items.map((book) => {
-      return {
-        title: book.volumeInfo.title,
-        author: book.volumeInfo.authors,
-        imageUrl: book.volumeInfo.imageLinks.smallThumbnail,
-        price: book.saleInfo.retailPrice.amount,
-        description: book.volumeInfo.description
-      }
-    });
+  updateBooks = (books) => {
     this.setState({books});
+  }
+
+  updateError = (errorMsg) => {
+    this.setState({error: errorMsg});
+  }
+
+  updateLoading = (bool) => {
+    this.setState({loading: bool});
   }
 
   render() {
@@ -41,9 +37,8 @@ class App extends Component {
           <h1>Google Book Search</h1>
         </header>
         <div className="App">
-          <SearchForm />
-          <Filters />
-          <List />
+          <SearchForm updateBooks={this.updateBooks} updateError={this.updateError} updateLoading={this.updateLoading}/>
+          {this.state.loading ? <h2>Loading...</h2> : this.state.error ? <Error msg={this.state.error} /> : <List books={this.state.books}/>}
         </div>
       </div>
     );

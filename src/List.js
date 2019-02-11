@@ -1,10 +1,17 @@
 import React from 'react';
-import Results from './Results';
+import ListItem from './ListItem';
+import './List.css';
 
 function List(props){
-  const results = [];
+  const books = props.books.map((book,index) => {
+    return (
+      <ListItem key={index} data={book}/>
+    );
+  });
+
   return (
    <ul id="results">
+    {books}
    </ul>
   )
 }

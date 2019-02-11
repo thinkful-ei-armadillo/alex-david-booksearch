@@ -1,0 +1,15 @@
+form {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+label {
+    text-align: right;
+    width: 100px;
+    padding-right: 15px;
+}
